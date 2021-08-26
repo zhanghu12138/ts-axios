@@ -14,7 +14,7 @@ export function isPlainObject(val: any): val is Object {
 
 // FormData、ArrayBuffer 这些类型，typeof 判断也为 true
 export function isObjectAnother(obj: any) {
-  return obj !== null && typeof val === 'object'
+  return obj !== null && typeof obj === 'object'
 }
 
 export function isArray(obj: any) {
@@ -32,15 +32,15 @@ export function isBoolean(obj: any) {
   return toString.call(obj) === '[object Boolean]'
 }
 
-export function isNumberical(obj: any) {
-  return (typeof obj === 'number' || typeof obj === 'string') && !isNaN(obj - parseFloat(obj))
-}
+// export function isNumberical(obj: any) {
+//   return (typeof obj === 'number' || typeof obj === 'string') && !isNaN(obj - parseFloat(obj))
+// } 
 
 // 格式化头部
-export function parseHeaders(headers: type): any {
+export function parseHeaders(headers: any): any {
   let parsed = Object.create(null)
   if (!headers) return parsed
-  headers.split('\r\n').forEach(line => {
+  headers.split('\r\n').forEach((line: any) => {
     let [key, val] = line.split(':')
     key = key.trim().toLowerCase()
     if (!key) {
@@ -65,4 +65,11 @@ export function transformResponse(data: any): any {
     }
   }
   return data
+}
+
+export function  extend<T, U>(to: T, from: U): T & U {
+  for(const key in from) {
+    ;(to as T & U)[key] = from[key] as any
+  }
+  return to as T & U
 }

@@ -7,7 +7,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     const request = new XMLHttpRequest()
     if (responseType) request.responseType = responseType
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
 
     request.onreadystatechange = function handLoad() {
       if (request.readyState !== 4) return
